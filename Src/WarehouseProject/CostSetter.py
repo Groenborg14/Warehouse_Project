@@ -19,26 +19,53 @@ def get_input_data():
 
 def calculate_d(P_l, P_r, input_data):
 
+    # P_l and P_r are dummy variables for now and are not used until "main road" functionility is implemented.
+
+
     D_l =[]
 
     # Find the maximum "distance" to the furthest local in the warehouse. This assumes that 1 shelf position is equal to 1 unit of distance.
     # Also currently temporary for testing purposes.
 
+    d_min = min(min(row) for row in input_data)
     d_max = max(max(row) for row in input_data)
     
-    # Calculate the normalized D_l value for each local in each row.
+    # Calculate the min-max normalized D_l value for each local in each row.
     for elem in range(len(input_data[0])):
         
-        norm_distance = input_data[0][elem] / d_max
+        norm_distance = (input_data[0][elem] - d_min) / (d_max - d_min) 
         D_l.append(norm_distance)
         print(D_l)
 
     return D_l
+
+def calculate_r(input_data):
+
+    # Calculate R_l for each local in the rows
+
+    R_l = []
+
+    total_postions = len(input_data[0]) * len(input_data) -1
+
+    
+    r_max = total_postions  # Assuming the maximum value is the total number of locals in the warehouse.
+    
+    for row in range(len(input_data)):
+        for elem in range(len(input_data[row])):
+            global_position = row * len(input_data[row]) + elem
+            norm_r = global_position / r_max
+            R_l.append(norm_r)
+
+    print(R_l, len(R_l))
+
+    return R_l   
 
 data = get_input_data()
 
 # Convert pd dataframe to list of lists
 data_list = data['rows'].apply(ast.literal_eval).to_list()
 
-print(data_list[0][0],type(data_list[0]))
-calculate_d(1, 2, data_list)
+print(data_list[0][0],len(data_list))
+#calculate_d(1, 2, data_list)
+calculate_r(data_list)
+
