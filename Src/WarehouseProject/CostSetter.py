@@ -13,11 +13,11 @@ def get_input_data():
     
     # Get input data from csv file and return as a pandas dataframe. Standin for the test data may change in future.
 
-    df = pd.read_csv("Warehouse_Project/Tests/TestData/GenData/warehouse_data.csv")
+    df = pd.read_csv("Warehouse_Project/Tests/TestData/GenData/warehouse_data_v2.csv")
 
     return df
 
-def calculate_d(P_l, P_r, input_data):
+def calculate_d(P_l, P_r, input_data, identifiers):
 
     # P_l and P_r are dummy variables for now and are not used until "main road" functionility is implemented.
 
@@ -31,15 +31,21 @@ def calculate_d(P_l, P_r, input_data):
     d_max = max(max(row) for row in input_data)
     
     # Calculate the min-max normalized D_l value for each local in each row.
-    for elem in range(len(input_data[0])):
-        
-        norm_distance = (input_data[0][elem] - d_min) / (d_max - d_min) 
-        D_l.append(norm_distance)
-        print(D_l)
+    for rows in range(len(input_data)):
+        row_distances = []
+        for elem in range(len(input_data[0])):
+            
+            norm_distance = (input_data[rows][elem] - d_min) / (d_max - d_min) 
+            row_distances.append(norm_distance)
+            print(D_l)
+        D_l.append(row_distances)
+
+    D_l_data = {"D_l": D_l, "identifier": identifiers}
+    pd.DataFrame(D_l_data).to_csv("Warehouse_Project/Tests/TestData/GenData/D_l_data.csv", index=False)
 
     return D_l
 
-def calculate_r(input_data):
+def calculate_r(input_data, identifiers):
 
     # Calculate R_l for each local in the rows
 
@@ -64,8 +70,9 @@ data = get_input_data()
 
 # Convert pd dataframe to list of lists
 data_list = data['rows'].apply(ast.literal_eval).to_list()
-
-print(data_list[0][0],len(data_list))
-#calculate_d(1, 2, data_list)
-calculate_r(data_list)
+identifiers = data['identifier']
+#print(identifiers[3], len(identifiers))
+#print(data_list[0][0],len(data_list))
+calculate_d(1, 2, data_list, identifiers)
+#calculate_r(data_list)
 
