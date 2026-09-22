@@ -40,6 +40,7 @@ def calculate_d(P_l, P_r, input_data, identifiers):
             print(D_l)
         D_l.append(row_distances)
 
+    #Create a pandas dataframe from the D_l list and the identifiers list and save it to a csv file.
     D_l_data = {"D_l": D_l, "identifier": identifiers}
     pd.DataFrame(D_l_data).to_csv("Warehouse_Project/Tests/TestData/GenData/D_l_data.csv", index=False)
 
@@ -57,12 +58,17 @@ def calculate_r(input_data, identifiers):
     r_max = total_postions  # Assuming the maximum value is the total number of locals in the warehouse.
     
     for row in range(len(input_data)):
+        temp_row = []
         for elem in range(len(input_data[row])):
             global_position = row * len(input_data[row]) + elem
             norm_r = global_position / r_max
-            R_l.append(norm_r)
+            temp_row.append(norm_r)
+        R_l.append(temp_row)
 
-    print(R_l, len(R_l))
+
+    #Create a pandas dataframe from the R_l list and the identifiers list and save it to a csv file.
+    R_l_data = {"R_l": R_l, "identifier": identifiers}
+    pd.DataFrame(R_l_data).to_csv("Warehouse_Project/Tests/TestData/GenData/R_l_data.csv", index=False)
 
     return R_l   
 
@@ -73,6 +79,6 @@ data_list = data['rows'].apply(ast.literal_eval).to_list()
 identifiers = data['identifier']
 #print(identifiers[3], len(identifiers))
 #print(data_list[0][0],len(data_list))
-calculate_d(1, 2, data_list, identifiers)
-#calculate_r(data_list)
+#calculate_d(1, 2, data_list, identifiers)
+calculate_r(data_list, identifiers)
 
