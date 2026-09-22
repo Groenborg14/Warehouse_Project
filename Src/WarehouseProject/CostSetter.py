@@ -37,7 +37,7 @@ def calculate_d(P_l, P_r, input_data, identifiers):
             
             norm_distance = (input_data[rows][elem] - d_min) / (d_max - d_min) 
             row_distances.append(norm_distance)
-            print(D_l)
+            #print(D_l)
         D_l.append(row_distances)
 
     #Create a pandas dataframe from the D_l list and the identifiers list and save it to a csv file.
