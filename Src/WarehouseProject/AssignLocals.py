@@ -26,15 +26,19 @@ def calculate_cost(R_l_data,D_l_data, weight_cost,sales_cost):
 
     total_cost = []
     
-    for wares in range(len(R_l_data)):
-        for local in range(len(R_l_data['R_l'][wares])):
+    for wares in range(len(weight_cost)):
+        for local in range(len(R_l_data)):
             # Calculate the total cost for each ware based on the formula provided.
 
-            cost = alpha * abs(R_l_data['R_l'][wares] - (1-weight_cost['w_c'][wares]))+ beta * (sales_cost['s_c'][wares] * D_l_data['D_l'][wares])
-            total_cost.append(cost)
+            cost = alpha * abs(R_l_data['Rl'][local] - (1-weight_cost['w_c'][wares]))+ beta * (sales_cost['s_c'][wares] * D_l_data['D_l'][local])
+            
+            
+            total_cost.append({"ware_id": weight_cost['ware_id'].iloc[wares], 
+                              "location": R_l_data['identifier'].iloc[local],
+                              "total_cost": cost})
 
-    data = {"ware_id": R_l_data['identifier'],"total_cost": total_cost}
-    pd.DataFrame(data).to_csv("Warehouse_Project/Tests/TestData/GenData/total_cost_data.csv", index=False)
+    
+    pd.DataFrame(total_cost).to_csv("Warehouse_Project/Tests/TestData/GenData/total_cost_data.csv", index=False)
 
 r_l_data, D_l_data, weight_cost, sales_cost = get_data()
 calculate_cost(r_l_data,D_l_data, weight_cost,sales_cost)
