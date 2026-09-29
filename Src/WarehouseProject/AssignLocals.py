@@ -1,0 +1,44 @@
+import pandas as pd
+
+# Hard coded weights
+
+alpha = 0.6
+beta = 0.4
+
+
+
+def get_data():
+
+    # Read the R_l and D_l data from the CSV files and return them as pandas dataframes.
+    R_l_data = pd.read_csv("Warehouse_Project/Tests/TestData/GenData/R_l_data.csv")
+    D_l_data = pd.read_csv("Warehouse_Project/Tests/TestData/GenData/D_l_data.csv")
+
+
+    # Read the cost data from the CSV files and return them as pandas dataframes.
+    weight_cost_data = pd.read_csv("Warehouse_Project/Tests/TestData/GenData/w_c_data.csv")
+    sales_cost_data = pd.read_csv("Warehouse_Project/Tests/TestData/GenData/s_c_data.csv")
+
+
+    return R_l_data, D_l_data, weight_cost_data, sales_cost_data
+
+
+def calculate_cost(R_l_data,D_l_data, weight_cost,sales_cost):
+
+    total_cost = []
+    
+    for wares in range(len(R_l_data)):
+        for local in range(len(R_l_data['R_l'][wares])):
+            # Calculate the total cost for each ware based on the formula provided.
+
+            cost = alpha * abs(R_l_data['R_l'][wares] - (1-weight_cost['w_c'][wares]))+ beta * (sales_cost['s_c'][wares] * D_l_data['D_l'][wares])
+            total_cost.append(cost)
+
+    data = {"ware_id": R_l_data['identifier'],"total_cost": total_cost}
+    pd.DataFrame(data).to_csv("Warehouse_Project/Tests/TestData/GenData/total_cost_data.csv", index=False)
+
+r_l_data, D_l_data, weight_cost, sales_cost = get_data()
+calculate_cost(r_l_data,D_l_data, weight_cost,sales_cost)
+
+
+
+
