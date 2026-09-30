@@ -1,4 +1,7 @@
 import pandas as pd
+from hungarian_algorithm import algorithm
+
+
 
 # Hard coded weights
 
@@ -27,6 +30,7 @@ def calculate_cost(R_l_data,D_l_data, weight_cost,sales_cost):
     total_cost = []
     
     for wares in range(len(weight_cost)):
+        i = 0
         for local in range(len(R_l_data)):
             # Calculate the total cost for each ware based on the formula provided.
 
@@ -34,11 +38,27 @@ def calculate_cost(R_l_data,D_l_data, weight_cost,sales_cost):
             
             
             total_cost.append({"ware_id": weight_cost['ware_id'].iloc[wares], 
-                              "location": R_l_data['identifier'].iloc[local],
+                              "location": R_l_data['identifier'].iloc[local] + str(i),
                               "total_cost": cost})
+            i+=1
+            if i == 18:
+                i = 0
+                
 
     
     pd.DataFrame(total_cost).to_csv("Warehouse_Project/Tests/TestData/GenData/total_cost_data.csv", index=False)
+    df = pd.DataFrame(total_cost)
+    cost_matrix = df.pivot(
+        index="ware_id",
+        columns="location",
+        values="total_cost"
+    )
+
+    cost_matrix.to_csv(
+        "Warehouse_Project/Tests/TestData/GenData/cost_matrix.csv"
+    )
+
+
 
 r_l_data, D_l_data, weight_cost, sales_cost = get_data()
 calculate_cost(r_l_data,D_l_data, weight_cost,sales_cost)
