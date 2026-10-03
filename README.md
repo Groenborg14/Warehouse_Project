@@ -49,7 +49,7 @@ $$
 Current weights of the cost function only includes weights for weight of the ware and sales numbers $\alpha$ and $\beta$ respectively of which:
 
 $$
-5\alpha \hspace{1mm} \& \hspace{1mm} \beta \in [0,1]
+\alpha , \beta \in [0,1]
 $$
 
 The cost function is built around minimizing the cost of the location based on the wares weight and sales number per month (this is subject to change as multiple other parameters such as dimensions could be important). 
