@@ -26,7 +26,7 @@ d_l = \text{distance to given location}
 $$
 
 $$
-d_{min}\hspace{2mm}  \text{and} \hspace{2mm} d_{max} = \text{minimum and maximum distance respectively}
+d_{min}\hspace{1mm}  \text{and} \hspace{1mm} d_{max} = \text{minimum and maximum distance respectively}
 $$
 
 Similarly calculations for $R_l$ follows the same logic:
@@ -41,8 +41,17 @@ $$
 r_l = \text{given location}$$
 
 $$
-r_{min}\hspace{2mm}  \text{and} \hspace{2mm} r_{max} = \text{minimum and maximum amount of locations}
+r_{min}\hspace{1mm}  \text{and} \hspace{1mm} r_{max} = \text{minimum and maximum amount of locations}
 $$
 
+**Cost Function**
+
+Current weights of the cost function only includes weights for weight of the ware and sales numbers $\alpha$ and $\beta$ respectively of which:
+
+$$
+\alpha , \beta \in [0,1]
+$$
+
+The cost function is built around minimizing the cost of the location based on the wares weight and sales number per month (this is subject to change as multiple other parameters such as dimensions could be important). 
 
 
