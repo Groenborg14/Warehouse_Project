@@ -2,6 +2,9 @@ from PySide6.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QListWidge
 import pandas as pd
 import WareListViewer as WareListViewer
 import WarehouseViewer as WarehouseViewer
+from WarehousePages import WarehousePage
+from SettingsPage import Settings
+
 
 
 import sys
@@ -22,14 +25,14 @@ class MainWindow(QMainWindow):
         #Create Pages
 
         main_menu = QLabel("Main Menu")
-        warehouse_viewer = QLabel("Warehouse Viewer")
-        settings = QLabel("Settings")
+        #warehouse_viewer = WarehousePage()
+        #settings = QLabel("Settings")
         optimizer = QLabel("Optimizer")
 
         # add pages to the stacked widget
         self.pages.addWidget(main_menu)
-        self.pages.addWidget(warehouse_viewer)
-        self.pages.addWidget(settings)
+        self.pages.addWidget(WarehousePage.WarehousePage())
+        self.pages.addWidget(Settings.SettingsPage())
         self.pages.addWidget(optimizer)
 
         # Nav bar buttons
