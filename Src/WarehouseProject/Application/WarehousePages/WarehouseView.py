@@ -24,6 +24,10 @@ class WarehouseViewer(QGraphicsView):
 
         self.draw_warehouse()
         self.load_assignments()
+
+        
+
+
         
 
     def draw_warehouse(self):

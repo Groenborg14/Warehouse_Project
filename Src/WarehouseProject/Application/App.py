@@ -1,7 +1,5 @@
-from PySide6.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QListWidget, QPushButton, QVBoxLayout, QWidget, QStackedWidget, QLabel
+from PySide6.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QPushButton, QVBoxLayout, QWidget, QStackedWidget, QLabel
 import pandas as pd
-import WareListViewer as WareListViewer
-import WarehouseViewer as WarehouseViewer
 from WarehousePages import WarehousePage
 from SettingsPage import Settings
 
@@ -25,8 +23,6 @@ class MainWindow(QMainWindow):
         #Create Pages
 
         main_menu = QLabel("Main Menu")
-        #warehouse_viewer = WarehousePage()
-        #settings = QLabel("Settings")
         optimizer = QLabel("Optimizer")
 
         # add pages to the stacked widget
@@ -56,9 +52,6 @@ class MainWindow(QMainWindow):
 
         nav_bar_layout.addStretch() 
 
-        #nav_vbox = QVBoxLayout()
-        #nav_vbox.addStretch(2) 
-        #nav_vbox.addLayout(nav_bar)
         
 
         main_layout.addWidget(nav_bar)
@@ -66,15 +59,6 @@ class MainWindow(QMainWindow):
 
         self.pages.setCurrentIndex(0)  # Set the initial page to the main menu
 
-
-        #left side: ware list viewer
-        #ware_list_viewer = WareListViewer.WareList()
-
-        #right side: placeholder for future visualizations
-        #warehouse_view = WarehouseViewer.WarehouseViewer()
-
-        #main_layout.addWidget(ware_list_viewer)
-        #main_layout.addWidget(warehouse_view,1)
 
         self.setCentralWidget(central_widget)
 
